@@ -21,7 +21,7 @@ def calc_chit(length: int):
             temp_sum += data[digit]
         else:
             temp_sum = 0
-            print(f"\ncharacter '{digit}' is invalid\n")
+            print(f"character '{digit}' is invalid\n")
             break
 
     if count == len(str_list):
