@@ -1,5 +1,6 @@
 import openpyxl
 import re
+from openpyxl.styles import Font
 
 workbook = openpyxl.load_workbook('chit_data.xlsx')
 
@@ -51,7 +52,7 @@ def autoFillSum(start_row: int, end_row: int, column: str, workSheet):
             next_cell = workSheet[chr(ord(column) + 1) + str(row)]
             next_cell.value = temp_sum
     sum_cell = workSheet[chr(ord(column) + 1) + str(end_row + 1)]
-    sum_cell.value = total_sum
+    sum_cell.font, sum_cell.value = Font(bold=True), total_sum
     totals.append(total_sum)
 
 
@@ -62,12 +63,8 @@ autoFillSum(3, 40, 'B', worksheet3)
 autoFillSum(3, 40, 'E', worksheet3)
 # autoFillSum(5, 128, 'B', worksheet4)
 
+worksheet3['F43'].font = Font(bold=True, italic=True, size=14)
 worksheet3['E43'].value, worksheet3['F43'].value = "GRAND TOTAL", sum(totals)
 workbook.save("chit_data.xlsx")
 
-# Loop through the range of cells and read their values
-# for row in range(start_row, end_row+1):
-#     cell = worksheet2[column + str(row)]
-#     value = cell.value
-#     num_list = value.strip().split(" ")[-1].split(",")
-#     print(num_list)
+
