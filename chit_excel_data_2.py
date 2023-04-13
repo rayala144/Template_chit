@@ -4,12 +4,10 @@ from openpyxl.styles import Font
 
 workbook = openpyxl.load_workbook('chit_data.xlsx')
 
-# Select the worksheet by name
-worksheet1 = workbook['Sheet1']
-worksheet2 = workbook['Sheet2']
-worksheet3 = workbook['Sheet3']
-worksheet4 = workbook['Sheet4']
 
+def create_sheet(sheet_num: int):
+    work_Sheet = workbook[f'Sheet{str(sheet_num)}']
+    return work_Sheet
 
 # Set the range of cells to read
 # start_row = 3  # Change this to the row number of the first cell in the column
@@ -28,7 +26,7 @@ def getNumData(start_row: int, column: str, workSheet):
     # length = (end_row - start_row) + 1
 
 
-data2 = getNumData(3, 'B', worksheet1)
+data2 = getNumData(3, 'B', create_sheet(1))
 num_list = [str(num) for num in range(1, len(data2) + 1)]
 totals = []
 
@@ -57,14 +55,18 @@ def autoFillSum(start_row: int, end_row: int, column: str, workSheet):
 
 
 # print(getNumData(3, 'B', worksheet1))
-autoFillSum(3, 32, 'B', worksheet2)
-autoFillSum(3, 32, 'E', worksheet2)
-autoFillSum(3, 40, 'B', worksheet3)
-autoFillSum(3, 40, 'E', worksheet3)
+autoFillSum(3, 32, 'B', create_sheet(2))
+autoFillSum(3, 32, 'E', create_sheet(2))
+autoFillSum(3, 40, 'B', create_sheet(3))
+autoFillSum(3, 40, 'E', create_sheet(3))
 # autoFillSum(5, 128, 'B', worksheet4)
 
-worksheet3['F43'].font = Font(bold=True, italic=True, size=14)
-worksheet3['E43'].value, worksheet3['F43'].value = "GRAND TOTAL", sum(totals)
+
+# Grand total
+create_sheet(3)['F43'].font = Font(bold=True, italic=True, size=14)
+create_sheet(3)['E43'].value, create_sheet(3)['F43'].value = "GRAND TOTAL", sum(totals)
+
+# save file
 workbook.save("chit_data.xlsx")
 
 
