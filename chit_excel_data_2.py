@@ -1,4 +1,5 @@
 import openpyxl
+import re
 
 workbook = openpyxl.load_workbook('chit_data.xlsx')
 
@@ -37,7 +38,7 @@ def autoFillSum(start_row: int, end_row: int, column: str, workSheet):
         cell = workSheet[column + str(row)]
         value = cell.value
         if value is not None:
-            str_list = value.strip().split(" ")[-1].split(",")
+            str_list = re.findall(r'\d+', value)
             temp_sum, count = 0, 0
             for digit in str_list:
                 if digit != '' and digit in num_list:
