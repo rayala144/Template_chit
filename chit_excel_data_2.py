@@ -5,7 +5,7 @@ from openpyxl.styles import Font
 workbook = openpyxl.load_workbook('chit_data.xlsx')
 
 
-def create_sheet(sheet_num: int):
+def get_sheet(sheet_num: int):
     work_Sheet = workbook[f'Sheet{str(sheet_num)}']
     return work_Sheet
 
@@ -22,7 +22,7 @@ def getNumData(start_row: int, column: str, workSheet):
     # length = (end_row - start_row) + 1
 
 
-data2 = getNumData(3, 'B', create_sheet(1))
+data2 = getNumData(3, 'B', get_sheet(1))
 num_list = [str(num) for num in range(1, len(data2) + 1)]
 totals = []
 
@@ -51,16 +51,16 @@ def autoFillSum(start_row: int, end_row: int, column: str, workSheet):
 
 
 # print(getNumData(3, 'B', worksheet1))
-autoFillSum(3, 32, 'B', create_sheet(2))
-autoFillSum(3, 32, 'E', create_sheet(2))
-autoFillSum(3, 40, 'B', create_sheet(3))
-autoFillSum(3, 40, 'E', create_sheet(3))
+autoFillSum(3, 32, 'B', get_sheet(2))
+autoFillSum(3, 32, 'E', get_sheet(2))
+autoFillSum(3, 40, 'B', get_sheet(3))
+autoFillSum(3, 40, 'E', get_sheet(3))
 # autoFillSum(5, 128, 'B', worksheet4)
 
 
 # Grand total
-create_sheet(3)['F43'].font = Font(bold=True, italic=True, size=14)
-create_sheet(3)['E43'].value, create_sheet(3)['F43'].value = "GRAND TOTAL", sum(totals)
+get_sheet(3)['F43'].font = Font(bold=True, italic=True, size=14)
+get_sheet(3)['E43'].value, get_sheet(3)['F43'].value = "GRAND TOTAL", sum(totals)
 
 # save file
 workbook.save("chit_data.xlsx")
