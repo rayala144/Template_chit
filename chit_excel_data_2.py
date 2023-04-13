@@ -9,10 +9,6 @@ def create_sheet(sheet_num: int):
     work_Sheet = workbook[f'Sheet{str(sheet_num)}']
     return work_Sheet
 
-# Set the range of cells to read
-# start_row = 3  # Change this to the row number of the first cell in the column
-# end_row = 32  # Change this to the row number of the last cell in the column
-# column = 'B'  # Change this to the letter of the column you want to read
 
 
 def getNumData(start_row: int, column: str, workSheet):
